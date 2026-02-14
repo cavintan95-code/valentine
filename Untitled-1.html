@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Valentine ❤️</title>
+
+<style>
+*{
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    margin:0;
+    min-height:100vh;
+    background: linear-gradient(135deg,#ff5f9e,#ff85b3,#ffc3d8);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+/* CARD */
+.container{
+    background:white;
+    padding:25px;
+    border-radius:25px;
+    max-width:420px;
+    width:90%;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.25);
+    animation: fadeIn 1.5s ease;
+    z-index:5;
+}
+
+h1{
+    color:#ff3f7f;
+    margin-bottom:10px;
+}
+
+p{
+    color:#444;
+    font-size:18px;
+}
+
+/* BUTTONS */
+.btn-group{
+    margin-top:20px;
+}
+
+button{
+    padding:12px 22px;
+    border:none;
+    border-radius:25px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+    margin:5px;
+}
+
+.yes{
+    background:#ff3f7f;
+    color:white;
+}
+
+.no{
+    background:#ddd;
+}
+
+.yes:hover{
+    transform:scale(1.1);
+    background:#ff1f67;
+}
+
+/* HEARTS */
+.heart{
+    position:absolute;
+    color:red;
+    animation: float 6s linear infinite;
+    opacity:0.7;
+}
+
+/* MUSIC BTN */
+.music-btn{
+    position:fixed;
+    bottom:15px;
+    right:15px;
+    background:white;
+    border-radius:50%;
+    width:55px;
+    height:55px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 5px 15px rgba(0,0,0,0.3);
+    cursor:pointer;
+    z-index:10;
+}
+
+/* ANIMATIONS */
+@keyframes float{
+    0%{transform:translateY(100vh) scale(0.8); opacity:0;}
+    50%{opacity:1;}
+    100%{transform:translateY(-10vh) scale(1.3); opacity:0;}
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.8);}
+    to{opacity:1; transform:scale(1);}
+}
+
+/* RESULT SCREEN */
+.result{
+    display:none;
+}
+
+.big-heart{
+    font-size:60px;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse{
+    0%{transform:scale(1);}
+    50%{transform:scale(1.2);}
+    100%{transform:scale(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- MUSIC -->
+<audio id="bgm" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/30/audio_3e6b5f9b7a.mp3?filename=romantic-love-ambient-121088.mp3" type="audio/mpeg">
+</audio>
+
+<div class="music-btn" onclick="toggleMusic()">🎵</div>
+
+<!-- MAIN CARD -->
+<div class="container" id="mainCard">
+    <h1>Happy Valentine 💖</h1>
+    <p>Hai <b>NAMA_PACAR_KAMU</b> 🥰</p>
+    <p>Aku punya pertanyaan penting banget...</p>
+    <h2>Will you be my Valentine? 💌</h2>
+
+    <div class="btn-group">
+        <button class="yes" onclick="yesClick()">YES 💖</button>
+        <button class="no" id="noBtn" onmouseover="moveNo()">NO 🙃</button>
+    </div>
+</div>
+
+<!-- RESULT -->
+<div class="container result" id="resultCard">
+    <div class="big-heart">❤️</div>
+    <h1>YAAAY 💕</h1>
+    <p>Makasih ya <b>NAMA_PACAR_KAMU</b> 😘</p>
+    <p>Kamu itu alasan aku senyum setiap hari 🥺❤️</p>
+    <p>Aku sayang kamu 🤍</p>
+    <p>- <b>NAMA_KAMU</b></p>
+</div>
+
+<script>
+/* HEART ANIMATION */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (15 + Math.random()*25) + "px";
+    heart.style.animationDuration = (3 + Math.random()*3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,600);
+
+/* NO BUTTON LARI */
+function moveNo(){
+    const noBtn = document.getElementById("noBtn");
+    const x = Math.random() * 250 - 125;
+    const y = Math.random() * 200 - 100;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+/* YES CLICK */
+function yesClick(){
+    document.getElementById("mainCard").style.display="none";
+    document.getElementById("resultCard").style.display="block";
+}
+
+/* MUSIC */
+let playing = false;
+function toggleMusic(){
+    const music = document.getElementById("bgm");
+    if(!playing){
+        music.play();
+        playing = true;
+    }else{
+        music.pause();
+        playing = false;
+    }
+}
+</script>
+
+</body>
+</html>
